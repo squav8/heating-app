@@ -5,7 +5,7 @@ services:
     runtime: docker
     plan: free
     region: frankfurt
-    healthCheckPath: /api/state
+    healthCheckPath: /
     envVars:
       - key: HEATING_DRIVER
         value: evohome
