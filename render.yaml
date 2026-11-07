@@ -1,0 +1,19 @@
+# Render blueprint: one small web service built from the Dockerfile.
+services:
+  - type: web
+    name: heating
+    runtime: docker
+    plan: free
+    region: frankfurt
+    healthCheckPath: /api/state
+    envVars:
+      - key: HEATING_DRIVER
+        value: evohome
+      - key: EVOHOME_POLL_SECONDS
+        value: "120"
+      - key: EVOHOME_USERNAME
+        sync: false
+      - key: EVOHOME_PASSWORD
+        sync: false
+      - key: HEATING_PIN
+        sync: false

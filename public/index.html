@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>Heating</title>
+  <meta name="theme-color" content="#111318" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Heating">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/icon-180.png">
+  <link rel="icon" href="/icons/icon-192.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <h1>Heating</h1>
+      <div class="status" id="status"><span class="dot"></span><span id="status-text">Connecting…</span></div>
+    </header>
+
+    <div id="single-view" hidden>
+    <section class="dial-card">
+      <div class="dial" id="dial">
+        <svg viewBox="0 0 200 200" class="ring" aria-hidden="true">
+          <circle class="ring-track" cx="100" cy="100" r="86"/>
+          <circle class="ring-fill" id="ring-fill" cx="100" cy="100" r="86"/>
+          <circle class="ring-marker" id="ring-marker" r="4"/>
+        </svg>
+        <div class="dial-center">
+          <div class="label">Room</div>
+          <div class="current"><span id="current">--</span><span class="unit">°</span></div>
+          <div class="target-line">Target <strong id="target">--</strong>°</div>
+          <div class="flame" id="flame" hidden>🔥 Heating</div>
+        </div>
+      </div>
+      <div class="adjust">
+        <button class="round" id="minus" aria-label="Lower target">−</button>
+        <button class="round" id="plus" aria-label="Raise target">+</button>
+      </div>
+      <p class="hint" id="hint"></p>
+    </section>
+
+    <section class="modes" role="tablist" aria-label="Mode">
+      <button data-mode="off" role="tab">Off</button>
+      <button data-mode="auto" role="tab">Schedule</button>
+      <button data-mode="heat" role="tab">Manual</button>
+    </section>
+
+    <section class="boost-card">
+      <div>
+        <h2>Boost</h2>
+        <p id="boost-text">Warm the house up quickly for a while, then go back to normal.</p>
+      </div>
+      <div class="boost-buttons">
+        <button class="pill" data-boost="30">30 min</button>
+        <button class="pill" data-boost="60">1 h</button>
+        <button class="pill" data-boost="120">2 h</button>
+        <button class="pill danger" id="boost-cancel" hidden>Cancel</button>
+      </div>
+    </section>
+
+    <section class="schedule-card">
+      <div class="row-between">
+        <h2>Schedule</h2>
+        <button class="link" id="add-entry">+ Add</button>
+      </div>
+      <ul id="schedule" class="schedule"></ul>
+      <p class="muted small">Tap a time or temperature to edit. Changes save automatically.</p>
+    </section>
+
+    </div>
+
+    <div id="zones-view" hidden>
+      <section class="house-card">
+        <div class="row-between">
+          <h2 id="house-name">Home</h2>
+          <button class="link" id="refresh">Refresh</button>
+        </div>
+        <div class="modes house-modes" id="house-modes" role="tablist" aria-label="House mode"></div>
+        <p class="hint" id="house-hint"></p>
+      </section>
+      <ul id="zones" class="zones"></ul>
+      <p class="muted small center">Hold length applies when you tap + or −. Schedules live on the Evohome controller.</p>
+    </div>
+
+    <footer class="muted small" id="footer"></footer>
+  </main>
+
+  <dialog id="pin-dialog">
+    <form method="dialog">
+      <h2>Enter PIN</h2>
+      <input id="pin-input" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" placeholder="••••">
+      <button class="primary">Unlock</button>
+    </form>
+  </dialog>
+
+  <script src="/app.js"></script>
+</body>
+</html>
